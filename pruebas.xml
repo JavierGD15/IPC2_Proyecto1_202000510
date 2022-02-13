@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<pisosArtesanales>
+ <piso nombre="nombrePiso">
+ <R> 2 </R>
+ <C> 8 </C>
+ <F> 5 </F>
+ <S> 5 </S>
+ <patrones>
+ <patron codigo="codigoPatron"> 
+ WBWBWBWW
+ </patron>
+ </patrones>
+ </piso>
+</pisosArtesanales>
