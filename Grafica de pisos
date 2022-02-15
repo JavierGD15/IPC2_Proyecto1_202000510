@@ -1,26 +1,7 @@
 digraph {
-	1 [fillcolor=white shape=box style=filled]
-	2 [fillcolor=black shape=box style=filled]
-	3 [fillcolor=white shape=box style=filled]
-	4 [fillcolor=black shape=box style=filled]
-	5 [fillcolor=white shape=box style=filled]
-	6 [fillcolor=white shape=box style=filled]
-	7 [fillcolor=white shape=box style=filled]
-	8 [fillcolor=black shape=box style=filled]
-	9 [fillcolor=white shape=box style=filled]
-	10 [fillcolor=black shape=box style=filled]
-	11 [fillcolor=white shape=box style=filled]
-	12 [fillcolor=black shape=box style=filled]
-	13 [fillcolor=white shape=box style=filled]
-	14 [fillcolor=white shape=box style=filled]
-	15 [fillcolor=white shape=box style=filled]
-	16 [fillcolor=black shape=box style=filled]
-	17 [fillcolor=white shape=box style=filled]
-	18 [fillcolor=black shape=box style=filled]
-	19 [fillcolor=white shape=box style=filled]
-	20 [fillcolor=black shape=box style=filled]
-	21 [fillcolor=white shape=box style=filled]
-	22 [fillcolor=white shape=box style=filled]
-	23 [fillcolor=white shape=box style=filled]
-	24 [fillcolor=black shape=box style=filled]
+	tab [label=<<TABLE CELLSPACING="0">
+			
+            <TR><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD></TR><TR><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD></TR><TR></TR>
+
+    </TABLE>> shape=plaintext]
 }

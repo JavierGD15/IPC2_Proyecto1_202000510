@@ -152,26 +152,48 @@ def graphviz(patron, secuencia):
 
     patron_encontrado = nuevalista.buscarpatron(patron)
     codigo_piso = nuevopatron.buscar_piso(secuencia)
-    x = 1
-    datos = 0
+    z = 0
+    x = ""
+    tr_inicio = '''<TR>'''
+    tr_fin = '''</TR>'''
+    cuerpo = ""
 
 
     dot = Digraph(filename='Grafica de pisos', format= 'png')
     
-    for i in patron_encontrado.fila:
-        print(i)
-        for j in codigo_piso.codigo:
+
+    for i in codigo_piso.codigo:
+            if i == "W":
+                z = z + 1
+            elif i == "B":
+                z = z + 1
+            else:
+                None        
+    z = z/2
+    w = 0
+    print("z: ", z)
+
+    for i in codigo_piso.codigo:
             
-            
-            if j == "W":
-                dot.node(str(x),shape = 'box', style = 'filled', fillcolor = 'white')
-                x = x + 1
-            elif j == "B":
-                dot.node(str(x),shape = 'box', style = 'filled', fillcolor = 'black')
-                x = x + 1
+            if w == z:
+                cuerpo = cuerpo +tr_inicio+x+tr_fin
+                x = ""
+                w = 1
+            elif i == "W":
+                x = x+'''<TD BGCOLOR="white"><FONT >W</FONT></TD>'''
+                w = w + 1
+            elif i == "B":
+                x = x+'''<TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD>'''
+                w = w + 1
             else:
                 None
-            
+
+    dot.node('tab',shape='plaintext', label='''<<TABLE CELLSPACING="0">
+			
+            '''+cuerpo+'''
+
+    </TABLE>>''')
+
             #generar salto de linea
 
             
