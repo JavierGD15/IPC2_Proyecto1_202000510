@@ -2,11 +2,8 @@ from graphviz import Digraph, Graph
 
 x = ""
 y = '''<TD BGCOLOR="white"><FONT >line3</FONT></TD>'''
-x = x+y
-
 tr_inicio = '''<TR>'''
 tr_fin = '''</TR>'''
-
 cuerpo = ""
 
 for i in range(4):
@@ -25,6 +22,7 @@ for i in range(4):
 
 dot = Digraph(filename='Grafica de pisos', format= 'png')
 #generar tabla
+
 dot.node('tab',shape='plaintext', label='''<<TABLE CELLSPACING="0">
 			
             '''+cuerpo+'''

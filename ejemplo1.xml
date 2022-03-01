@@ -1,43 +1,43 @@
 <?xml version="1.0"?>
 <pisosArtesanales>
- <piso nombre="ejemplo01">
+ <piso nombre="hola">
  <R> 2 </R>
  <C> 4 </C>
  <F> 1 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="cod11"> 
+ <patron codigo="cod12"> 
  WBWBWWWB
  </patron>
- <patron codigo="cod12"> 
+ <patron codigo="cod11"> 
  BWBWWWWW
  </patron>
  </patrones>
  </piso>
- <piso nombre="ejemplo02">
+ <piso nombre="alberto">
  <R> 3 </R>
  <C> 3 </C>
  <F> 1 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="cod21"> 
+ <patron codigo="cod22"> 
  WBBBWBWWW
  </patron>
- <patron codigo="cod22"> 
+ <patron codigo="cod21"> 
  WWWWBWWWB
  </patron>
  </patrones>
  </piso>
- <piso nombre="ejemplo03">
+ <piso nombre="yaya">
  <R> 1 </R>
  <C> 5 </C>
  <F> 1000 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="cod31"> 
+ <patron codigo="cod32"> 
  WBBBB
  </patron>
- <patron codigo="cod32"> 
+ <patron codigo="cod31"> 
  BBBWW
  </patron>
  </patrones>

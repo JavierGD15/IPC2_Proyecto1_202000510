@@ -60,6 +60,35 @@ class Lista_piso:
                     aux = aux.siguiente
             return None
 
+    def imprimir_piso(self):
+        if self.raiz.nombre == None:
+            print("No hay pisos")
+        else:
+            aux = self.raiz
+            while aux != None:
+                print(aux.nombre)
+                aux = aux.siguiente
+
+    #ordenar en alfabetico
+    def ordenar_piso(self):
+        if self.raiz.nombre == None:
+            return None
+        else:
+            aux = self.raiz
+            while aux != None:
+                if aux.siguiente != None:
+                    if aux.nombre > aux.siguiente.nombre:
+                        aux2 = aux.siguiente
+                        aux.siguiente = aux2.siguiente
+                        aux2.siguiente = aux
+                        aux = aux2
+                    else:
+                        aux = aux.siguiente
+                else:
+                    aux = aux.siguiente
+            return self.raiz
+
+
 
 
 
@@ -80,17 +109,18 @@ class ListaSimple_Nodo:
             self.ultimo.siguiente = nuevoNodo
             self.ultimo = nuevoNodo
 
-    def imprimir(self):
+    def imprimirnombre(self):
         aux = self.raiz
         while True:
             if aux.fila == None:
                 break
             else:
-                print("Fila: ",aux.fila, "Columna: ", aux.columna, "Costo de volteo: ", aux.costo_volteo, "Costo de intercambio: ", aux.costo_intercambio)
+                print("Nombre: ",aux.nombre)
                 if aux.siguiente == None:
                     break
                 else:    
                     aux = aux.siguiente
+
     def buscarpatron(self, patron):
         aux = self.raiz
         while True:
@@ -105,11 +135,84 @@ class ListaSimple_Nodo:
                     else:
                         aux = aux.siguiente
 
+    
+    def ordenar(self):
+        if self.raiz.fila == None:
+            return None
+        else:
+            aux = self.raiz
+            while aux != None:
+                if aux.siguiente != None:
+                    if aux.nombre > aux.siguiente.nombre:
+                        aux2 = aux.siguiente
+                        aux.siguiente = aux2.siguiente
+                        aux2.siguiente = aux
+                        aux = aux2
+                    else:
+                        aux = aux.siguiente
+                else:
+                    aux = aux.siguiente
+            return self.raiz
+
+
 def clearConsole():
     command = 'clear'
     if os.name in ('nt', 'dos'):  
         command = 'cls'
     os.system(command)
+
+def menu():
+    global nuevalista, nuevopatron
+    clearConsole()
+    print("***************************************************")
+    print("*"+"           ¿Qué deseas hacer? "+"                  *")
+    print("*"+" 1. Mostrar graficamente un patron "+"               *")
+    print("*"+" 2. Cambiar un tipo de piso "+"                      *")
+    print("*"+" 3. Mostrar todos los pisos cargados "+"             *")
+    print("***************************************************")
+    opcion = int(input("Ingrese una opcion: "))
+
+
+    if opcion == 1:
+        
+        print("***************************************************")
+        print("*"+"           Pisos Artesanales, S.A"+ "                *")
+        print("*"+" Hola, elijamos nuestro patron"+ "       *")
+        print("*"+" Nuestros Nombres de pisos disponibles son: "+ "       *")
+        nuevalista.imprimirnombre()
+        print("***************************************************")
+        patron = input("Ingrese el nombre del piso que desea buscar: ")
+        
+        patron_encontrado = nuevalista.buscarpatron(patron)
+        if patron_encontrado == None:
+            print("*"+" No se encontró el nombre ingresado"+"       *")
+            menu()
+    
+
+        else:
+            print("*"+" Nuestros códigos disponibles son: "+ "       *")
+            nuevopatron.imprimir_piso()
+            codigo = input("Ingrese codigo de patron que desea aplicar: ")
+        
+        
+            if patron_encontrado == None:
+                print("No se encontro el patron")
+            else:
+                print("Imprimiendo patron: ", patron_encontrado.nombre)
+                graphviz(patron_encontrado.nombre,codigo)
+    elif opcion == 2:
+        print("***************************************************")
+    elif opcion == 3:
+        nuevopatron.ordenar_piso()
+        nuevalista.ordenar()
+        nuevalista.imprimirnombre()
+        nuevopatron.imprimir_piso()
+    
+
+
+
+        
+
 
 def opciones():
     global nuevalista, nuevopatron
@@ -119,35 +222,10 @@ def opciones():
     print("*"+" Hola, elijamos nuestro archivo de entrada"+ "       *")
     print("***************************************************")
     leerArchivo()
+    menu()
 
     
-    print("*"+"           ¿Qué deseas hacer? "+"                  *")
-    print("*"+"1. Mostrar graficamente un patron "+"               *")
-    print("*"+"2. Cambiar un tipo de piso "+"                      *")
-    print("*"+"3. Mostrar todos los pisos cargados "+"             *")
-    print("***************************************************")
-    opcion = int(input("Ingrese una opcion: "))
-
-
-    if opcion == 1:
-        print("***************************************************")
-        print("*"+"           Pisos Artesanales, S.A"+ "                *")
-        print("*"+" Hola, elijamos nuestro patron"+ "       *")
-        print("***************************************************")
-        patron = input("Ingrese el nombre del piso que desea buscar: ")
-        codigo = input("Ingrese codigo de patron que desea aplicar: ")
-        patron_encontrado = nuevalista.buscarpatron(patron)
-        
-        if patron_encontrado == None:
-            print("No se encontro el patron")
-        else:
-            print("Imprimiendo patron: ", patron_encontrado.nombre)
-            graphviz(patron_encontrado.nombre,codigo)
-    
-
-
-
-        
+   
 def graphviz(patron, secuencia):
 
     patron_encontrado = nuevalista.buscarpatron(patron)
@@ -160,31 +238,26 @@ def graphviz(patron, secuencia):
 
 
     dot = Digraph(filename='Grafica de pisos', format= 'png')
-    
-
-    for i in codigo_piso.codigo:
-            if i == "W":
-                z = z + 1
-            elif i == "B":
-                z = z + 1
-            else:
-                None        
-    z = z/2
+       
+    z = int(patron_encontrado.columna)
     w = 0
     print("z: ", z)
 
     for i in codigo_piso.codigo:
-            
-            if w == z:
-                cuerpo = cuerpo +tr_inicio+x+tr_fin
-                x = ""
-                w = 1
-            elif i == "W":
+            if i == "W":
                 x = x+'''<TD BGCOLOR="white"><FONT >W</FONT></TD>'''
                 w = w + 1
+                if w == z:
+                    cuerpo = cuerpo +tr_inicio+x+tr_fin
+                    x = ""
+                    w = 0
             elif i == "B":
                 x = x+'''<TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD>'''
                 w = w + 1
+                if w == z:
+                    cuerpo = cuerpo +tr_inicio+x+tr_fin
+                    x = ""
+                    w = 0
             else:
                 None
 
@@ -198,6 +271,7 @@ def graphviz(patron, secuencia):
 
             
     dot.view()
+    menu()
 
 
     
