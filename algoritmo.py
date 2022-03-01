@@ -1,8 +1,8 @@
+secuencia ="WBBBB"
+nueva_secuencia ="BBBWW"
+filas = 1
+columnas = 5
 
-secuencia ="WBBBWBWWW"
-nueva_secuencia ="WWWWBWWWB"
-filas = 3
-columnas = 3
 matriz = []
 matriz2 = []
 costos_matriz = []
@@ -20,8 +20,38 @@ cambios = 0
 #Totales
 volteos_totales =0
 cambios_totales =0
+volteos_precios =1000
+cambios_precios =1
 
 total =""
+
+def imprimir_matriz():
+    u = 0
+    print("***************************************************")
+    for i in range(len(matriz)):
+        if u == columnas:
+            u = 1
+            print("\n"+matriz[i], end="")
+                
+
+        else:
+            print(matriz[i], end="")
+            u = u+1
+    print("\n")
+    print("***************************************************")
+
+    u = 0
+    for i in range(len(matriz2)):
+        if u == columnas:
+            u = 1
+            print("\n"+matriz2[i], end="")
+
+        else:
+            print(matriz2[i], end="")
+            u = u+1
+    print("\n")
+    print("***************************************************")
+
 
 for i in secuencia:
     if i == "W":
@@ -44,80 +74,116 @@ elif blanco_nuevo == blanco_actual:
 else:
     cambios = int(blanco_actual-blanco_nuevo)
 
-print("Cambios: ", cambios)
-volteos_totales = int(cambios)
+
 
 aux =[]
 for i in secuencia:
     aux.append(i)
 
-#agregamos los cambios obligatorios
-x=0
-print("Aux inicial: ", aux)
-if cambios > 0:
-    for i in nueva_secuencia:
-        if cambios == 0:
-            break
-        if aux[x] == i:
-            x = x+1            
-        else:
-            aux[x] = i
-            x = x+1
-            cambios = cambios-1
-
-    secuencia = ""
-    #agregamos los cambios opcionales
-    for i in aux:
-        secuencia = secuencia + i        
-
-
-#agregamos la matriz partida en niveles
 for i in secuencia:
     
         matriz.append(i)
-
     
 
 for i in nueva_secuencia:
     
         matriz2.append(i)
         
-
+imprimir_matriz()
 #iniciamos los costos
 
 x = 0
 y = 0
 nuevo = ""
+
+
 for i in range(len(matriz)):    
         if matriz[i] == matriz2[i]:
             continue
-
         else:
             #evaluamos el cambio
-            if matriz2[i] == matriz[i+1]:
-                cambios_totales = cambios_totales+1
-                matriz[i+1] = matriz[i]
-                matriz[i] = matriz2[i]   
-                print("Matriz: ", matriz)
-                print("Matriz2: ", matriz2)             
-                continue
+            try:
+                if matriz2[i] == matriz[i+1]:
+                    print("Entra en cambio de columna")
+                    try:
+                        if matriz[i] == matriz[i+2]:
+                            
+                            cambios_totales = cambios_totales+1
+                            matriz[i+1] = matriz[i]
+                            matriz[i] = matriz2[i]
+                            print("cambio3333")
+                            imprimir_matriz()                                                    
+                            continue
                 
-            elif matriz2[i] == matriz[i+columnas]:
-                cambios_totales = cambios_totales+1
-                matriz[i+columnas] = matriz[i]
-                matriz[i] = matriz2[i]
-                print("Matriz: ", matriz)
-                print("Matriz2: ", matriz2)
+                        elif matriz[i] == matriz[i+columnas]:
+                            cambios_totales = cambios_totales+1
+                            matriz[i+1] = matriz[i]
+                            matriz[i] = matriz2[i]
+                            print("cambio555")
+                            imprimir_matriz()
+                            continue
 
-            else:
+                        else:
+                            cambios_totales = cambios_totales+1
+                            matriz[i+columnas] = matriz[i]
+                            matriz[i] = matriz2[i]
+                            print("cambio1")
+                            imprimir_matriz()
+                            continue
+                    except:
+                            cambios_totales = cambios_totales+1
+                            matriz[i+1] = matriz[i]
+                            matriz[i] = matriz2[i]
+                            print("cambio errrrror")
+                            imprimir_matriz()                                                    
+                            continue
+                
+                
+
+
+                elif matriz2[i] == matriz[i+columnas]:
+                    print("Entra en cambio de fila")
+                    if matriz[i] == matriz[i+columnas+1]:
+                        cambios_totales = cambios_totales+1
+                        matriz[i+columnas] = matriz[i]
+                        matriz[i] = matriz2[i]
+                        print("cambio1")
+                        imprimir_matriz()
+                        continue
+                
+                    elif matriz[i] == matriz[i+columnas+columnas]:
+                        cambios_totales = cambios_totales+1
+                        matriz[i+columnas] = matriz[i]
+                        matriz[i] = matriz2[i]
+                        print("cambio1")
+                        imprimir_matriz()
+                        continue
+
+                    else:
+                        cambios_totales = cambios_totales+1
+                        matriz[i+columnas] = matriz[i]
+                        matriz[i] = matriz2[i]
+                        print("cambio1")
+                        imprimir_matriz()    
+                        continue
+
+                else:
+                    print("Entra en volteo")
+                    volteos_totales = volteos_totales+1
+                    matriz[i] = matriz2[i]
+                    imprimir_matriz()
+                    continue
+        
+            except:
                 volteos_totales = volteos_totales+1
                 matriz[i] = matriz2[i]
-                print("Matriz: ", matriz)
-                print("Matriz2: ", matriz2)
-                    
+                print("volteo por error total")
+                imprimir_matriz()
+                continue     
 
 print("Volteos totales: ", volteos_totales)
 print("Cambios totales: ", cambios_totales)
+print("Costo total: ", ((volteos_totales*volteos_precios)+(cambios_totales*cambios_precios)))
 
 
 
