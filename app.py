@@ -5,6 +5,7 @@ from tkinter.messagebox import NO
 from turtle import color, shape
 import xml.etree.ElementTree as ET
 from graphviz import Digraph, Graph
+from algoritmo import Nodo_Nuevo
 
 
 #R es Filas
@@ -60,14 +61,17 @@ class Lista_piso:
                     aux = aux.siguiente
             return None
 
-    def imprimir_piso(self):
+    def imprimir_piso(self, nombre):
         if self.raiz.nombre == None:
             print("No hay pisos")
         else:
             aux = self.raiz
             while aux != None:
-                print(aux.nombre)
-                aux = aux.siguiente
+                if aux.nombre_pertenece == nombre:
+                    print("Nombre: ", aux.nombre)
+                    aux = aux.siguiente
+                else:
+                    aux = aux.siguiente
 
     #ordenar en alfabetico
     def ordenar_piso(self):
@@ -191,7 +195,7 @@ def menu():
 
         else:
             print("*"+" Nuestros códigos disponibles son: "+ "       *")
-            nuevopatron.imprimir_piso()
+            nuevopatron.imprimir_piso(patron_encontrado.nombre)
             codigo = input("Ingrese codigo de patron que desea aplicar: ")
         
         
@@ -200,8 +204,38 @@ def menu():
             else:
                 print("Imprimiendo patron: ", patron_encontrado.nombre)
                 graphviz(patron_encontrado.nombre,codigo)
+
     elif opcion == 2:
+
         print("***************************************************")
+        print("*"+"           Pisos Artesanales, S.A"+ "                *")
+        print("*"+" Hola, elijamos nuestro patron"+ "       *")
+        print("*"+" Nuestros Nombres de pisos disponibles son: "+ "       *")
+        nuevalista.imprimirnombre()
+        print("***************************************************")
+        patron = input("Ingrese el nombre del piso que desea buscar: ")
+        
+        patron_encontrado = nuevalista.buscarpatron(patron)
+        if patron_encontrado == None:
+            print("*"+" No se encontró el nombre ingresado"+"       *")
+            menu()
+    
+
+        else:
+            print("*"+" Nuestros códigos disponibles son: "+ "       *")
+            nuevopatron.imprimir_piso(patron_encontrado.nombre)
+            patron_actual = input("Ingrese codigo de patron que desea editar: ")      
+            codigo_piso = nuevopatron.buscar_piso(patron_actual)        
+            if codigo_piso == None:
+                print("No se encontro el patron")
+            else:                             
+                nuevo_patron = input("Ingrese su nuevo patron: ")
+                a = Nodo_Nuevo()
+                print(patron_encontrado.columna)
+                Aux_cambio = a.organizar_matriz(codigo_piso.codigo,nuevo_patron,int(patron_encontrado.columna),patron_encontrado.costo_intercambio,patron_encontrado.costo_volteo)
+                a.imprimirnombre(Aux_cambio)
+
+        
     elif opcion == 3:
         nuevopatron.ordenar_piso()
         nuevalista.ordenar()

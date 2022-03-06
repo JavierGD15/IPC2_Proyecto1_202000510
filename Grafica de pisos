@@ -1,7 +1,7 @@
 digraph {
 	tab [label=<<TABLE CELLSPACING="0">
 			
-            <TR><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD></TR><TR><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD></TR><TR><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="white"><FONT >line2</FONT></TD></TR><TR><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">line2</FONT></TD></TR>
+            <TR><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD></TR><TR><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="white"><FONT >W</FONT></TD><TD BGCOLOR="black"><FONT COLOR="white">B</FONT></TD></TR>
 
     </TABLE>> shape=plaintext]
 }

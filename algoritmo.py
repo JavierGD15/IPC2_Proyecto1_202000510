@@ -1,189 +1,330 @@
-secuencia ="WBBBB"
-nueva_secuencia ="BBBWW"
-filas = 1
-columnas = 5
 
-matriz = []
-matriz2 = []
-costos_matriz = []
+class Lista:
+    def __init__(self, valor= None, Siguiente= None):
+        self.valor = valor
+        self.Siguiente = Siguiente
 
-#Variables para conocer los valores 
-blanco_actual = 0
-negro_actual = 0
+class Lista_Nueva:
+    def __init__(self, valor= None, Siguiente= None):
+        self.valor = valor
+        self.Siguiente = Siguiente
 
-blanco_nuevo = 0
-negro_nuevo = 0
+class Nodo_Nuevo:    
+    def __init__(self):
+        self.raiz_nueva = Lista_Nueva()
+        self.ultimo_nueva = Lista_Nueva()
+        self.raiz = Lista()
+        self.ultimo = Lista()
 
-#Variable de cambios encontrados obligatorios
-cambios = 0
-
-#Totales
-volteos_totales =0
-cambios_totales =0
-volteos_precios =1000
-cambios_precios =1
-
-total =""
-
-def imprimir_matriz():
-    u = 0
-    print("***************************************************")
-    for i in range(len(matriz)):
-        if u == columnas:
-            u = 1
-            print("\n"+matriz[i], end="")
-                
-
-        else:
-            print(matriz[i], end="")
-            u = u+1
-    print("\n")
-    print("***************************************************")
-
-    u = 0
-    for i in range(len(matriz2)):
-        if u == columnas:
-            u = 1
-            print("\n"+matriz2[i], end="")
-
-        else:
-            print(matriz2[i], end="")
-            u = u+1
-    print("\n")
-    print("***************************************************")
-
-
-for i in secuencia:
-    if i == "W":
-        blanco_actual= blanco_actual+1
-    else:
-        negro_actual = negro_actual+1
-
-for i in nueva_secuencia:
-    if i == "W":
-        blanco_nuevo= blanco_nuevo+1
-    else:
-        negro_nuevo = negro_nuevo+1
-
-if blanco_nuevo > blanco_actual:
-    cambios = int(blanco_nuevo-blanco_actual)
-
-elif blanco_nuevo == blanco_actual:
-    cambios = 0
-
-else:
-    cambios = int(blanco_actual-blanco_nuevo)
-
-
-
-aux =[]
-for i in secuencia:
-    aux.append(i)
-
-for i in secuencia:
-    
-        matriz.append(i)
-    
-
-for i in nueva_secuencia:
-    
-        matriz2.append(i)
+    def insertar(self, nuevoNodo):
+        if self.raiz_nueva.valor == None:
+            self.raiz_nueva = nuevoNodo
+            self.ultimo_nueva = nuevoNodo
         
-imprimir_matriz()
-#iniciamos los costos
-
-x = 0
-y = 0
-nuevo = ""
-
-
-for i in range(len(matriz)):    
-        if matriz[i] == matriz2[i]:
-            continue
+        elif self.raiz_nueva.Siguiente == None:
+            self.raiz_nueva.Siguiente = nuevoNodo
+            self.ultimo_nueva = nuevoNodo
         else:
-            #evaluamos el cambio
-            try:
-                if matriz2[i] == matriz[i+1]:
-                    print("Entra en cambio de columna")
-                    try:
-                        if matriz[i] == matriz[i+2]:
-                            
-                            cambios_totales = cambios_totales+1
-                            matriz[i+1] = matriz[i]
-                            matriz[i] = matriz2[i]
-                            print("cambio3333")
-                            imprimir_matriz()                                                    
-                            continue
-                
-                        elif matriz[i] == matriz[i+columnas]:
-                            cambios_totales = cambios_totales+1
-                            matriz[i+1] = matriz[i]
-                            matriz[i] = matriz2[i]
-                            print("cambio555")
-                            imprimir_matriz()
-                            continue
+            self.ultimo_nueva.Siguiente = nuevoNodo
+            self.ultimo_nueva = nuevoNodo
 
-                        else:
-                            cambios_totales = cambios_totales+1
-                            matriz[i+columnas] = matriz[i]
-                            matriz[i] = matriz2[i]
-                            print("cambio1")
-                            imprimir_matriz()
-                            continue
-                    except:
-                            cambios_totales = cambios_totales+1
-                            matriz[i+1] = matriz[i]
-                            matriz[i] = matriz2[i]
-                            print("cambio errrrror")
-                            imprimir_matriz()                                                    
-                            continue
-                
-                
+    def insertar_actual(self, nuevoNodo):
+        if self.raiz.valor == None:
+            self.raiz = nuevoNodo
+            self.ultimo = nuevoNodo
+        
+        elif self.raiz.Siguiente == None:
+            self.raiz.Siguiente = nuevoNodo
+            self.ultimo = nuevoNodo
+        else:
+            self.ultimo.Siguiente = nuevoNodo
+            self.ultimo = nuevoNodo
 
-
-                elif matriz2[i] == matriz[i+columnas]:
-                    print("Entra en cambio de fila")
-                    if matriz[i] == matriz[i+columnas+1]:
-                        cambios_totales = cambios_totales+1
-                        matriz[i+columnas] = matriz[i]
-                        matriz[i] = matriz2[i]
-                        print("cambio1")
-                        imprimir_matriz()
-                        continue
-                
-                    elif matriz[i] == matriz[i+columnas+columnas]:
-                        cambios_totales = cambios_totales+1
-                        matriz[i+columnas] = matriz[i]
-                        matriz[i] = matriz2[i]
-                        print("cambio1")
-                        imprimir_matriz()
-                        continue
-
-                    else:
-                        cambios_totales = cambios_totales+1
-                        matriz[i+columnas] = matriz[i]
-                        matriz[i] = matriz2[i]
-                        print("cambio1")
-                        imprimir_matriz()    
-                        continue
+    def imprimirnombre(self,columnas):
+        x = 0
+        aux = self.raiz
+        while True:
+            if aux.valor == None:
+                break
+            else:
+                if x == columnas:
+                    x = 1
+                    print("\n"+aux.valor, end="")
+                    if aux.Siguiente == None:
+                        break
+                    else:    
+                        aux = aux.Siguiente                    
 
                 else:
-                    print("Entra en volteo")
-                    volteos_totales = volteos_totales+1
-                    matriz[i] = matriz2[i]
-                    imprimir_matriz()
-                    continue
+                    print(aux.valor, end="")
+                    x = x + 1
+                    if aux.Siguiente == None:
+                        break
+                    else:    
+                        aux = aux.Siguiente
         
-            except:
-                volteos_totales = volteos_totales+1
-                matriz[i] = matriz2[i]
-                print("volteo por error total")
-                imprimir_matriz()
-                continue     
+        print("\n")
 
-print("Volteos totales: ", volteos_totales)
-print("Cambios totales: ", cambios_totales)
-print("Costo total: ", ((volteos_totales*volteos_precios)+(cambios_totales*cambios_precios)))
+
+    def organizar_matriz(self,secuencia, nueva_secuencia, columnas ,volteos_precios, cambios_precios):
+        #Totales
+        volteos_totales =0
+        cambios_totales =0
+    
+        
+
+        for i in secuencia:
+            
+            self.insertar_actual(Lista(i))
+    
+        for i in nueva_secuencia:
+            self.insertar(Lista_Nueva(i))
+
+        aux_actual = self.raiz
+        aux_nueva = self.raiz_nueva
+        aux_columna = aux_actual.Siguiente
+        aux_fila = None
+
+
+        for i in range(columnas+1):
+            if aux_actual.valor == None:
+                aux_fila = None
+                break
+            else:
+                aux_fila = aux_actual
+                aux_actual = aux_actual.Siguiente
+        aux_actual = self.raiz
+        
+        
+        while True:
+            
+            try:
+                if aux_actual.valor == None and aux_nueva.valor == None:                    
+                    break
+                else:
+                    if aux_actual.valor == aux_nueva.valor:
+                        if aux_actual.Siguiente == None:                            
+                            break
+                        else:    
+                            print("No hay cambios ya que son iguales")
+                            self.imprimirnombre(columnas)
+                            aux_actual = aux_actual.Siguiente    
+                            aux_nueva = aux_nueva.Siguiente
+                            aux_columna = aux_actual.Siguiente
+                            aux_fila = None
+                            aux_rapida = aux_actual                           
+                            
+                            for i in range(columnas+1):
+                                if aux_actual.Siguiente == None:
+                                    aux_fila = None
+                                    break
+                                else:
+                                    aux_fila = aux_actual
+                                    aux_actual = aux_actual.Siguiente
+                            aux_actual = aux_rapida
+
+                    else:                        
+                            print("No son iguales asi que se debe volver a organizar")
+
+                            if aux_nueva.valor == aux_columna.valor:
+                                print("Se ingreso en cambio a la izquierda")
+                                aux_columna1 = aux_columna.Siguiente
+                                aux_fila1 = aux_fila.Siguiente
+
+                                if aux_columna.valor == aux_columna1.valor:
+                                    cambios_totales += 1
+                                    print("Cambio: ",aux_actual.valor, "->", aux_nueva.valor)
+                                    aux_actual.Siguiente.valor = aux_actual.valor
+                                    aux_actual.valor = aux_nueva.valor
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+                                    
+                                    aux_nueva = aux_rapida
+                                    self.imprimirnombre(columnas)
+
+                                elif aux_columna.valor == aux_fila1.valor:
+                                    cambios_totales += 1
+                                    print("Cambio: ",aux_actual.valor, "->", aux_nueva.valor)
+                                    aux_actual.Siguiente.valor = aux_actual.valor
+                                    aux_actual.valor = aux_nueva.valor
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+                                    
+                                    self.imprimirnombre(columnas)
+
+                                else:
+                                    volteos_totales += 1
+                                    print("Volteo: ",aux_actual.valor, "->", aux_nueva.valor)                                    
+                                    aux_actual.valor = aux_nueva.valor       
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+
+                                    self.imprimirnombre(columnas)                                                          
+                                    
+                            elif aux_nueva.valor == aux_fila.valor:
+                                aux_columna1 = aux_columna.Siguiente
+                                aux_fila1 = aux_fila.Siguiente
+
+                                if aux_actual.valor == aux_columna1.valor:
+                                    cambios_totales += 1
+                                    print("Cambio: ",aux_actual.valor, "->", aux_nueva.valor)
+                                    aux_actual.Siguiente.valor = aux_actual.valor
+                                    aux_actual.valor = aux_nueva.valor
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+                                    
+                                    self.imprimirnombre(columnas)
+
+                                elif aux_actual.valor == aux_fila1.valor:
+                                    cambios_totales += 1
+                                    print("Cambio: ",aux_actual.valor, "->", aux_nueva.valor)
+                                    aux_actual.Siguiente.valor = aux_actual.valor
+                                    aux_actual.valor = aux_nueva.valor
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+                                    
+                                    self.imprimirnombre(columnas)
+
+                                else:
+                                    volteos_totales += 1
+                                    print("Volteo obligado: ",aux_actual.valor, "->", aux_nueva.valor)                                    
+                                    aux_actual.valor = aux_nueva.valor       
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+
+                                    self.imprimirnombre(columnas)  
+
+                            else:
+                                    volteos_totales += 1
+                                    print("Volteo: ",aux_actual.valor, "->", aux_nueva.valor)                                    
+                                    aux_actual.valor = aux_nueva.valor       
+
+                                    #Reinicio
+                                    aux_actual = aux_actual.Siguiente    
+                                    aux_nueva = aux_nueva.Siguiente
+                                    aux_columna = aux_actual.Siguiente
+                                    aux_fila = None
+                                    aux_rapida = aux_actual                           
+                            
+                                    for i in range(columnas+1):
+                                        if aux_actual.Siguiente == None:
+                                            aux_fila = None
+                                            break
+                                        else:
+                                            aux_fila = aux_actual
+                                            aux_actual = aux_actual.Siguiente
+
+
+                                    aux_actual = aux_rapida
+                                    self.imprimirnombre(columnas)
+
+            except: 
+                volteos_totales += 1
+                print("Volteo: ",aux_actual.valor, "->", aux_nueva.valor)                                    
+                aux_actual.valor = aux_nueva.valor      
+                self.imprimirnombre(columnas)  
+
+        print("Volteos totales: ", volteos_totales)
+        print("Cambios totales: ", cambios_totales)
+        print("Costo total: ", ((volteos_totales*volteos_precios)+(cambios_totales*cambios_precios)))
+        return (aux_actual)
+
 
 
 

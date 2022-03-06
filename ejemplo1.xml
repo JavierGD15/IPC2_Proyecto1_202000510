@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <pisosArtesanales>
- <piso nombre="hola">
+ <piso nombre="ejemplo01">
  <R> 2 </R>
  <C> 4 </C>
  <F> 1 </F>
@@ -14,7 +14,7 @@
  </patron>
  </patrones>
  </piso>
- <piso nombre="alberto">
+ <piso nombre="ejemplo02">
  <R> 3 </R>
  <C> 3 </C>
  <F> 1 </F>
@@ -28,7 +28,7 @@
  </patron>
  </patrones>
  </piso>
- <piso nombre="yaya">
+ <piso nombre="ejemplo03">
  <R> 1 </R>
  <C> 5 </C>
  <F> 1000 </F>
