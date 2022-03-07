@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<pisosArtesanales>
+ <piso nombre="jardy">
+ <R> 2 </R>
+ <C> 4 </C>
+ <F> 1 </F>
+ <S> 1 </S>
+ <patrones>
+ <patron codigo="cod12"> 
+ WBWBWWWB
+ </patron>
+ <patron codigo="cod11"> 
+ BWBWWWWW
+ </patron>
+ </patrones>
+ </piso>
+ 
+ <piso nombre="aavier">
+ <R> 3 </R>
+ <C> 3 </C>
+ <F> 1 </F>
+ <S> 1 </S>
+ <patrones>
+ <patron codigo="cod22"> 
+ WBBBWBWWW
+ </patron>
+ <patron codigo="cod21"> 
+ WWWWBWWWB
+ </patron>
+ </patrones>
+ </piso>
+ <piso nombre="olex">
+ <R> 1 </R>
+ <C> 5 </C>
+ <F> 1000 </F>
+ <S> 1 </S>
+ <patrones>
+ <patron codigo="cod33"> 
+ WBBBB
+ </patron>
+ <patron codigo="cod31"> 
+ BBBWW
+ </patron>
+ </patrones>
+ </piso>
+</pisosArtesanales>
