@@ -323,8 +323,7 @@ class Nodo_Nuevo:
         print("Volteos totales: ", volteos_totales)
         print("Cambios totales: ", cambios_totales)
         print("Costo total: ", ((volteos_totales*volteos_precios)+(cambios_totales*cambios_precios)))
-        return (aux_actual)
-
+        return (self.raiz)
 
 
 

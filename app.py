@@ -1,4 +1,3 @@
-import imp
 import os
 from tkinter import filedialog
 from tkinter.messagebox import NO
@@ -50,16 +49,40 @@ class Lista_piso:
             self.ultimo = nuevocodigo        
 
     def buscar_piso(self, nombre):
+        global palabra
+        palabra = ""
         if self.raiz.nombre == None:
             return None
         else:
             aux = self.raiz
             while aux != None:
                 if aux.nombre == nombre:
-                    return aux
+                    for i in aux.codigo:
+                        if i == "W" or i == "B":
+                            palabra += i
+                            
+                    break
                 else:
                     aux = aux.siguiente
+            return aux
+
+    def intercambiar_piso(self, nombre, nuevo_codigo):
+        if self.raiz.nombre == None:
             return None
+        else:
+            aux = self.raiz
+
+            while self.raiz != None:
+                if self.raiz.nombre == nombre:
+                    self.raiz.codigo = nuevo_codigo   
+
+                self.raiz = self.raiz.siguiente
+            
+            self.raiz = aux
+            return self.raiz
+
+        
+        
 
     def imprimir_piso(self, nombre):
         if self.raiz.nombre == None:
@@ -73,24 +96,50 @@ class Lista_piso:
                 else:
                     aux = aux.siguiente
 
+    def imprimir_todo(self):
+        if self.raiz.nombre == None:
+            print("No hay pisos")
+        else:
+            aux = self.raiz
+            while aux != None:
+                print("Código: ", aux.nombre)
+                aux = aux.siguiente
+
+    def eliminar_piso(self, nombre):
+        if self.raiz.nombre == None:
+            return None
+        else:
+            aux = self.raiz
+            while aux != None:
+                if aux.nombre == nombre:
+                    if aux.siguiente == None:
+                        self.raiz = None
+                        break
+                    else:
+                        aux.siguiente = aux.siguiente.siguiente
+                        break
+
+                aux = aux.siguiente
+            return self.raiz
+
+
     #ordenar en alfabetico
     def ordenar_piso(self):
         if self.raiz.nombre == None:
             return None
         else:
             aux = self.raiz
-            while aux != None:
+            while True:
                 if aux.siguiente != None:
                     if aux.nombre > aux.siguiente.nombre:
-                        aux2 = aux.siguiente
-                        aux.siguiente = aux2.siguiente
-                        aux2.siguiente = aux
-                        aux = aux2
+                        aux.nombre, aux.siguiente.nombre = aux.siguiente.nombre, aux.nombre
+                        aux = aux.siguiente
+
                     else:
                         aux = aux.siguiente
+
                 else:
-                    aux = aux.siguiente
-            return self.raiz
+                    break
 
 
 
@@ -139,24 +188,45 @@ class ListaSimple_Nodo:
                     else:
                         aux = aux.siguiente
 
+    def eliminar(self, nombre):
+        if self.raiz.fila == None:
+            return None
+        else:
+            aux = self.raiz
+
+            while self.raiz != None:
+
+                if self.raiz.nombre == nombre:
+                    if self.raiz.siguiente == None:
+                        self.raiz = None
+                        break
+                    else:
+                        self.raiz = self.raiz.siguiente
+                        break
+                else:
+                    self.raiz = self.raiz.siguiente
+
+            self.raiz = aux
+            return self.raiz
+
     
     def ordenar(self):
         if self.raiz.fila == None:
             return None
         else:
             aux = self.raiz
-            while aux != None:
+            while True:
                 if aux.siguiente != None:
                     if aux.nombre > aux.siguiente.nombre:
-                        aux2 = aux.siguiente
-                        aux.siguiente = aux2.siguiente
-                        aux2.siguiente = aux
-                        aux = aux2
+                        aux.nombre, aux.siguiente.nombre = aux.siguiente.nombre, aux.nombre
+                        aux = aux.siguiente
                     else:
                         aux = aux.siguiente
                 else:
-                    aux = aux.siguiente
-            return self.raiz
+                    break
+
+ 
+            
 
 
 def clearConsole():
@@ -166,8 +236,8 @@ def clearConsole():
     os.system(command)
 
 def menu():
-    global nuevalista, nuevopatron
-    clearConsole()
+    global nuevalista, nuevopatron, palabra
+    #clearConsole()
     print("***************************************************")
     print("*"+"           ¿Qué deseas hacer? "+"                  *")
     print("*"+" 1. Mostrar graficamente un patron "+"               *")
@@ -228,19 +298,34 @@ def menu():
             codigo_piso = nuevopatron.buscar_piso(patron_actual)        
             if codigo_piso == None:
                 print("No se encontro el patron")
+                menu()
             else:                             
                 nuevo_patron = input("Ingrese su nuevo patron: ")
                 a = Nodo_Nuevo()
-                print(patron_encontrado.columna)
-                Aux_cambio = a.organizar_matriz(codigo_piso.codigo,nuevo_patron,int(patron_encontrado.columna),patron_encontrado.costo_intercambio,patron_encontrado.costo_volteo)
-                a.imprimirnombre(Aux_cambio)
+                col = patron_encontrado.columna
+                Aux_cambio = a.organizar_matriz(str(palabra),str(nuevo_patron),int(col),int(patron_encontrado.costo_intercambio),int(patron_encontrado.costo_volteo))
+                nueva_secuencia = ""
+                while True:
+                    if Aux_cambio.Siguiente == None:
+                        nueva_secuencia = nueva_secuencia + Aux_cambio.valor                        
+                        break
+                    else:
+                        nueva_secuencia = nueva_secuencia + Aux_cambio.valor
+                        Aux_cambio = Aux_cambio.Siguiente
+
+                print("Nueva secuencia: ",nueva_secuencia)
+                nuevopatron.intercambiar_piso(patron_actual,nueva_secuencia)
+                menu()
+                
 
         
     elif opcion == 3:
         nuevopatron.ordenar_piso()
         nuevalista.ordenar()
+        
+        nuevopatron.imprimir_todo()
         nuevalista.imprimirnombre()
-        nuevopatron.imprimir_piso()
+        menu()
     
 
 
@@ -351,5 +436,5 @@ def leerArchivo():
 
 if __name__ == "__main__":
     
-    clearConsole()
+    
     opciones()
