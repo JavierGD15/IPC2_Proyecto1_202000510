@@ -1,4 +1,5 @@
 import os
+import sys
 from tkinter import filedialog
 from tkinter.messagebox import NO
 from turtle import color, shape
@@ -142,9 +143,6 @@ class Lista_piso:
                     break
 
 
-
-
-
 class ListaSimple_Nodo:
     def __init__(self):
         self.raiz = Nodo()
@@ -226,8 +224,6 @@ class ListaSimple_Nodo:
                     break
 
  
-            
-
 
 def clearConsole():
     command = 'clear'
@@ -243,6 +239,7 @@ def menu():
     print("*"+" 1. Mostrar graficamente un patron "+"               *")
     print("*"+" 2. Cambiar un tipo de piso "+"                      *")
     print("*"+" 3. Mostrar todos los pisos cargados "+"             *")
+    print("*"+" 4. Salir "+"                                        *")
     print("***************************************************")
     opcion = int(input("Ingrese una opcion: "))
 
@@ -326,12 +323,22 @@ def menu():
         nuevopatron.imprimir_todo()
         nuevalista.imprimirnombre()
         menu()
+
+    elif opcion == 4:
+        #cerrar programa
+        print("***************************************************")
+        print("*"+"           Pisos Artesanales, S.A"+ "                *")
+        print("*"+" Gracias por utilizar nuestro servicio"+ "       *")
+        print("***************************************************")
+        sys.exit()
+
+    else:
+        print("***************************************************")
+        print("*"+"           Pisos Artesanales, S.A"+ "                *")
+        print("*"+" Opcion no valida"+ "       *")
+        print("***************************************************")
+        menu()
     
-
-
-
-        
-
 
 def opciones():
     global nuevalista, nuevopatron
@@ -342,7 +349,6 @@ def opciones():
     print("***************************************************")
     leerArchivo()
     menu()
-
     
    
 def graphviz(patron, secuencia):
@@ -393,9 +399,6 @@ def graphviz(patron, secuencia):
     menu()
 
 
-    
-
-
 
 def leerArchivo():
     global nuevalista, nuevopatron
@@ -427,12 +430,6 @@ def leerArchivo():
 
         nodo = Nodo(nombre, filas, columnas, costo_volteo, costo_intercambio)
         nuevalista.insertar(nodo)
-
-
-    
-
-            
-            
 
 if __name__ == "__main__":
     
